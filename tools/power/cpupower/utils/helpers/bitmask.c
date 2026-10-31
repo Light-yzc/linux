@@ -218,7 +218,7 @@ int bitmask_parselist(const char *buf, struct bitmask *bmp)
 			c1 = nexttoken(c1, ':');
 			if (c1 != NULL && (c2 == NULL || c1 < c2)) {
 				sret = sscanf(c1, "%u%c", &s, &nextc);
-				if (!scan_was_ok(sret, nextc, ","))
+				if (!scan_was_ok(sret, nextc, ",") || !s)
 					goto err;
 			}
 		}
@@ -228,6 +228,8 @@ int bitmask_parselist(const char *buf, struct bitmask *bmp)
 			goto err;
 		while (a <= b) {
 			_setbit(bmp, a, 1);
+			if (s > b - a)
+				break;
 			a += s;
 		}
 	}
