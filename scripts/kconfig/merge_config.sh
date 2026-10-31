@@ -318,7 +318,6 @@ function get_cfg(line) {
 }
 
 function warn_mismatch(cfg, merged, final) {
-	if (warnredun == "true") return
 	if (final == "" && !(merged ~ / is not set$/ || merged ~ /=n$/)) {
 		print "WARNING: Value requested for " cfg " not in final .config"
 		print "Requested value: " merged
