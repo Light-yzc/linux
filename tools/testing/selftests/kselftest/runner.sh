@@ -186,10 +186,10 @@ run_in_netns()
 	fi
 	ip -n $netns link set lo up
 
-	in_netns $netns &> $tmplog
+	in_netns $netns > $tmplog 2>&1
 	rc=$?
 
-	ip netns del $netns &> /dev/null
+	ip netns del $netns > /dev/null 2>&1
 	# Cat the log at once to avoid parallel netns logs.
 	cat $tmplog
 	rm -f $tmplog
